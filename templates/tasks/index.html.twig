@@ -23,7 +23,7 @@
                 <td>{{ task.name }}</td>
                 <td>{{ task.description }}</td>
                 <td>{{ task.status }}</td>
-                <td>{{ task.date ? task.date|date('Y-m-d') : '' }}</td>
+                <td>{{ task.date ? task.date|date('d/m/Y') : '' }}</td>
                 <td>
                     <a href="{{ path('app_tasks_show', {'id': task.id}) }}">show</a>
                     <a href="{{ path('app_tasks_edit', {'id': task.id}) }}">edit</a>

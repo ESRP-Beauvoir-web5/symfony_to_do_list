@@ -6,19 +6,23 @@ use App\Entity\Tasks;
 use App\Form\TasksType;
 use App\Repository\TasksRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/tasks')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 final class TasksController extends AbstractController
 {
     #[Route(name: 'app_tasks_index', methods: ['GET'])]
     public function index(TasksRepository $tasksRepository): Response
     {
         return $this->render('tasks/index.html.twig', [
-            'tasks' => $tasksRepository->findAll(),
+            'tasks' => $tasksRepository->findBy([
+                'user' => $this->getUser()
+            ]),
         ]);
     }
 
@@ -27,9 +31,13 @@ final class TasksController extends AbstractController
     {
         $task = new Tasks();
         $form = $this->createForm(TasksType::class, $task);
+        $user = $this->getUser();
+        $date = new \Datetime('now');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setUser($user);
+            $task->setDate($date);
             $entityManager->persist($task);
             $entityManager->flush();
 

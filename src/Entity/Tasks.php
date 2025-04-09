@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TasksRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TasksRepository::class)]
 class Tasks
@@ -15,9 +16,29 @@ class Tasks
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    // #[Assert\Length(
+    //     min: 4,
+    //     max: 20,
+    //     minMessage: "Le champ Nom doit contenir au moins 4 caractères",
+    //     maxMessage: "Le champ Nom doit contenir au maximum 20 caractères"
+    // )]
+    // #[Assert\Regex(
+    //     pattern: "/^[\p{L}0-9 '-]+$/u",
+    //     message: "Interdiction d'utiliser des caractères spéciaux"
+    // )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    // #[Assert\Length(
+    //     min: 10,
+    //     max: 100,
+    //     minMessage: "Le champ Nom doit contenir au moins 10 caractères",
+    //     maxMessage: "Le champ Nom doit contenir au maximum 100 caractères"
+    // )]
+    // #[Assert\Regex(
+    //     pattern: "/^[\p{L}0-9 '-]+$/u",
+    //     message: "Interdiction d'utiliser des caractères spéciaux"
+    // )]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]

@@ -1,4 +1,41 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {"attr": {'class': "mx-auto col-4"}}) }}
+    {# Champ Nom #}
+
+    {# Condition si une erreur survient #}
+    {% if form_errors(form.name) %}
+    <div class="alert alert-danger" role="alert">
+        {{ form_errors(form.name) }}
+    </div>
+    {% endif %}
+    {# Ici on mets en place le label de notre formulaire #}
+    {{ form_label(form.name) }}
+    {# Ici on mets en place le champ (input) de notre formulaire #}
+    {{ form_widget(form.name) }}
+    
+    {# Champ Description #}
+
+    {# Condition si une erreur survient #}
+    {% if form_errors(form.description) %}
+    <div class="alert alert-danger" role="alert">
+        {{ form_errors(form.description) }}
+    </div>
+    {% endif %}
+    {# Ici on mets en place le label de notre formulaire #}
+    {{ form_label(form.description) }}
+    {# Ici on mets en place le champ (input) de notre formulaire #}
+    {{ form_widget(form.description) }}
+    
+    {# Champ Statut #}
+
+    {# Condition si une erreur survient #}
+    {% if form_errors(form.status) %}
+    <div class="alert alert-danger" role="alert">
+        {{ form_errors(form.status) }}
+    </div>
+    {% endif %}
+    {# Ici on mets en place le label de notre formulaire #}
+    {{ form_label(form.status) }}
+    {# Ici on mets en place le champ (input) de notre formulaire #}
+    {{ form_widget(form.status) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
